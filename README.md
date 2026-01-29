@@ -49,8 +49,9 @@ Replace `YOUR_USERNAME` and `YOUR_REPO` with your GitHub username and repo name.
 
 1. Go to [vercel.com](https://vercel.com) and sign in (GitHub recommended).
 2. Click **Add New** → **Project** and import your GitHub repository.
-3. Leave the default settings (Framework: Next.js, build command: `npm run build`, output: default).
-4. Click **Deploy**. Vercel will build and deploy; you’ll get a URL like `https://your-project.vercel.app`.
+3. Leave the default settings (Framework: Next.js, build command: `npm run build`).
+4. **Important:** Leave **Output Directory** empty. Next.js does not use `dist` — it uses `.next`. If you set Output Directory to `dist`, you will get 404 errors.
+5. Click **Deploy**. Vercel will build and deploy; you’ll get a URL like `https://your-project.vercel.app`.
 
 After the first deploy, every push to `main` will trigger a new deployment.
 
