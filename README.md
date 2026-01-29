@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Component Library
 
-## Getting Started
+A component showcase site (like [21st.dev](https://21st.dev/community/components)) built with **Next.js 16**, **Tailwind CSS v4**, and **TypeScript**. Browse categories, view component demos, and deploy to Vercel.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router)
+- **Tailwind CSS v4** (CSS-first config, no `tailwind.config.js`)
+- **TypeScript**
+- **React 19**
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app/` — Routes and pages (home, `/components`, `/components/[category]`, `/components/[category]/[componentId]`)
+- `src/components/` — Shared UI (Header, CategoryCard, ComponentCard)
+- `src/lib/categories.ts` — Category and component metadata; add new categories and components here
 
-## Learn More
+## Adding components
 
-To learn more about Next.js, take a look at the following resources:
+1. Edit `src/lib/categories.ts` to add or extend categories and component entries.
+2. Add demos in `src/app/components/[category]/[componentId]/page.tsx` (or split by component with sub-routes if you prefer).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Push to GitHub
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Create a new repository on [GitHub](https://github.com/new) (e.g. `component-library`). Do **not** add a README, .gitignore, or license (this repo already has them).
+
+2. From the project root:
+
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git branch -M main
+git add .
+git commit -m "Initial commit: Next.js component showcase with Tailwind v4"
+git push -u origin main
+```
+
+Replace `YOUR_USERNAME` and `YOUR_REPO` with your GitHub username and repo name.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Go to [vercel.com](https://vercel.com) and sign in (GitHub recommended).
+2. Click **Add New** → **Project** and import your GitHub repository.
+3. Leave the default settings (Framework: Next.js, build command: `npm run build`, output: default).
+4. Click **Deploy**. Vercel will build and deploy; you’ll get a URL like `https://your-project.vercel.app`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+After the first deploy, every push to `main` will trigger a new deployment.
+
+## Scripts
+
+- `npm run dev` — Start dev server
+- `npm run build` — Production build
+- `npm run start` — Run production server locally
+- `npm run lint` — Run ESLint
