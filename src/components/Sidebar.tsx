@@ -2,11 +2,11 @@
 
 import {
   Application,
-  Document,
   Home,
   SidePanelClose,
   SidePanelOpen,
 } from "@carbon/icons-react";
+import Link from "next/link";
 import { useState } from "react";
 
 /**
@@ -19,14 +19,18 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`flex h-full min-h-screen flex-col border-r border-brandcolor-strokestrong bg-brandcolor-white transition-[width] duration-200 ${
+      className={`flex h-full min-h-screen flex-col border-r border-brandcolor-strokeweak bg-brandcolor-white transition-[width] duration-200 ${
         collapsed ? "w-16" : "w-56"
       }`}
       aria-label="Sidebar"
     >
-      {/* Header: logo left, collapse button right */}
-      <header className="flex shrink-0 items-center justify-between border-b border-brandcolor-strokestrong p-3">
-        <div className="flex min-w-0 shrink-0 items-center gap-2">
+      {/* Header: logo (click → Canvas), collapse button right — 16px padding both sides */}
+      <header className="flex shrink-0 items-center justify-between border-b border-brandcolor-strokemild px-4 py-3">
+        <Link
+          href="/canvas"
+          className="flex min-w-0 shrink-0 items-center gap-2 rounded transition-colors hover:bg-brandcolor-fill"
+          aria-label="Go to Canvas"
+        >
           <Application
             size={24}
             className="shrink-0 text-brandcolor-strokestrong"
@@ -34,10 +38,10 @@ export default function Sidebar() {
           />
           {!collapsed && (
             <span className="truncate text-sm font-medium text-brandcolor-textstrong">
-              App
+              96 Dev
             </span>
           )}
-        </div>
+        </Link>
         <button
           type="button"
           onClick={() => setCollapsed((c) => !c)}
@@ -52,23 +56,16 @@ export default function Sidebar() {
         </button>
       </header>
 
-      {/* Nav: icons always; text when expanded */}
+      {/* Nav: Home only — Canvas is via header icon */}
       <div className="flex flex-1 flex-col gap-1 overflow-hidden p-2">
         <nav className="flex flex-col gap-0.5">
-          <a
-            href="#"
-            className="flex items-center gap-2 rounded px-2 py-2 text-sm text-brandcolor-textstrong transition-colors hover:bg-brandcolor-sidebarhover hover:text-brandcolor-white"
+          <Link
+            href="/"
+            className="flex items-center gap-2 rounded px-2 py-2 text-sm text-brandcolor-textstrong transition-colors hover:bg-brandcolor-fill"
           >
             <Home size={20} className="shrink-0 text-brandcolor-strokestrong" aria-hidden />
             {!collapsed && <span className="truncate">Home</span>}
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-2 rounded px-2 py-2 text-sm text-brandcolor-textstrong transition-colors hover:bg-brandcolor-sidebarhover hover:text-brandcolor-white"
-          >
-            <Document size={20} className="shrink-0 text-brandcolor-strokestrong" aria-hidden />
-            {!collapsed && <span className="truncate">Item</span>}
-          </a>
+          </Link>
         </nav>
       </div>
     </aside>

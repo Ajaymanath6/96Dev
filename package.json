@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "component-helper": "node scripts/component-helper.mjs"
   },
   "dependencies": {
     "@carbon/icons-react": "^11.74.0",
