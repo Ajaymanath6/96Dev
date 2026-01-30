@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "component-helper": "node scripts/component-helper.mjs"
+    "component-helper": "node scripts/component-helper.mjs",
+    "ensure-component-ui": "node scripts/ensure-component-full-ui.mjs"
   },
   "dependencies": {
     "@carbon/icons-react": "^11.74.0",

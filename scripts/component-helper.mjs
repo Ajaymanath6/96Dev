@@ -28,17 +28,22 @@ async function handleGenerate(body) {
   const { componentId } = body;
   if (!componentId) return { success: false, error: "componentId required" };
   const safeId = componentId.replace(/[^a-zA-Z0-9-_]/g, "");
-  const dir = path.join(process.cwd(), "src", "components", safeId);
+  const dir = path.join(process.cwd(), "src", "components");
   const filePath = path.join(dir, `${safeId}.tsx`);
-  const componentPath = `src/components/${safeId}/${safeId}.tsx`;
+  const componentPath = `src/components/${safeId}.tsx`;
   const componentTag = `<${safeId} />`;
 
-  const content = `"use client";
+  const canvasPagePath = path.join(process.cwd(), "src", "pages", "CanvasPage.tsx");
+  const { extractComponentFromCanvas } = await import("./canvas-extract-component.mjs");
+  const extracted = extractComponentFromCanvas(componentId, canvasPagePath);
 
-export default function ${safeId}() {
-  return <div data-component-id="${safeId}">${safeId}</div>;
-}
-`;
+  let content;
+  if (extracted.success && extracted.source) {
+    content = extracted.source;
+  } else {
+    const { getFullComponentSource } = await import("./component-templates.mjs");
+    content = getFullComponentSource(componentId);
+  }
 
   try {
     fs.mkdirSync(dir, { recursive: true });

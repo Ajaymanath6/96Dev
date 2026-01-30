@@ -239,6 +239,40 @@
         "General white backgrounds"
       ]
     },
+    "brandcolor-page-bg": {
+      "hex": "#EAE4DC",
+      "usage": "Main content area / page background (warm off-white)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-page-bg",
+        "text": "text-brandcolor-page-bg",
+        "border": "border-brandcolor-page-bg"
+      },
+      "whenToUse": [
+        "Home page main content area background",
+        "Page-level background behind sidebar"
+      ],
+      "examples": [
+        "Page layout: bg-brandcolor-page-bg on main content container"
+      ]
+    },
+    "brandcolor-surface": {
+      "hex": "#F4F4F4",
+      "usage": "Light gray surface for page background and cards",
+      "utilityClasses": {
+        "background": "bg-brandcolor-surface",
+        "text": "text-brandcolor-surface",
+        "border": "border-brandcolor-surface"
+      },
+      "whenToUse": [
+        "HomePage background",
+        "Card backgrounds",
+        "Content area surfaces"
+      ],
+      "examples": [
+        "HomePage: bg-brandcolor-surface on page root and scroll container",
+        "Card2: bg-brandcolor-surface on card container"
+      ]
+    },
     "brandcolor-sidebarhover": {
       "hex": "#2E3C48",
       "usage": "Hover state background color for sidebar menu items and dropdown menu backgrounds",

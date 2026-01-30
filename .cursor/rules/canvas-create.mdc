@@ -1,0 +1,25 @@
+---
+description: When to add new vs update existing UI elements on the canvas
+globs: "**/CanvasPage.tsx,**/canvas/**"
+alwaysApply: false
+---
+
+# Canvas: create = new element
+
+When the user asks to **create** something in the canvas (e.g. "create a card", "create another card", "create a button in the canvas") **without specifying a catalog UI id**:
+
+- **Always add a NEW UI element** to the canvas. Do not update or replace an existing element.
+- Treat "create X in the canvas" as: add a new element of that kind (with its own id, position, and content).
+
+**Only update an existing element** when the user explicitly gives its **catalog UI id** (e.g. "update the card with id card-1", "change element-2 to ...").
+
+## Summary
+
+| User says | Action |
+|-----------|--------|
+| "Create a card in the canvas" | Add a **new** card element (new id, new instance). |
+| "Create another card" | Add a **new** card element (do not modify the existing card). |
+| "Create X in the canvas" (no id) | Add a **new** UI element. |
+| "Update card-1 to ..." or "Change element id card-1 ..." | **Update** the existing element with that id. |
+
+Unless the user specifies a catalog/UI id to change, **create** always means **add new**, not update.

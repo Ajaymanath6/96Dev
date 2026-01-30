@@ -1,0 +1,51 @@
+---
+description: Full UI for shared components from canvas; Make shared derives full code from CanvasPage automatically
+globs: "**/CanvasPage.tsx,**/components/*.tsx,**/pages/*.tsx,**/api/generate-component/**,**/scripts/component-templates.mjs,**/scripts/canvas-extract-component.mjs"
+alwaysApply: false
+---
+
+# Shared components: full UI only (no stubs)
+
+## 1. Make shared derives full code from the canvas automatically
+
+Any UI made into a shared component (clicking "Make shared" on the canvas) **must** result in a component file with **full HTML/JSX implementation**, never a stub.
+
+- **How it works:** The API (`POST /api/generate-component`) and the fallback script (`scripts/component-helper.mjs`) first call **scripts/canvas-extract-component.mjs** (`extractComponentFromCanvas(componentId, canvasPagePath)`). This reads `src/pages/CanvasPage.tsx`, finds the JSX block for `el.type === "<componentId>"`, strips canvas-only attributes (e.g. drag handlers), replaces `el.xxx` with props, infers imports (Carbon icons, StackSidebar), and returns full component source. If extraction fails (type not in CanvasPage or parse error), they fall back to **scripts/component-templates.mjs** (full UI for known types, stub with TODO for unknown).
+- **Single source of truth for canvas types:** The canvas UI in `src/pages/CanvasPage.tsx` is the source. When you add or change a canvas element type there, "Make shared" for that type automatically generates full code—**no manual template** in `component-templates.mjs` is required.
+
+## 2. When adding a new canvas element type (future-proof)
+
+When you add a new element type in `CanvasPage.tsx` (e.g. a new `el.type === "my-widget"` branch):
+
+1. **Implement the full UI** in the canvas branch (Tailwind/theme classes, Carbon icons, layout).
+2. **That is all.** Clicking "Make shared" on that type will extract that branch and write full code to `src/components/my-widget.tsx` (PascalCase name, props from `el.*`, imports inferred). No separate template in `component-templates.mjs` is needed.
+3. If extraction ever fails (e.g. format change), the API/helper falls back to templates; you can add a template for that type in `component-templates.mjs` as a fallback.
+
+## 3. When using a component in a page
+
+- **Import** from the real path (e.g. `import Card2 from "@/components/card-2";`).
+- **Render** the full component (e.g. `<Card2 />`). No placeholders or divs that only show the component id.
+- Use theme classes only; pass props as defined by the component's interface.
+
+## 4. Enforce full UI (script)
+
+Run to ensure no shared component file is still a stub:
+
+```bash
+npm run ensure-component-ui [componentId]
+```
+
+- **With `componentId`:** checks `src/components/<componentId>.tsx`. Exits 1 if it looks like a stub.
+- **Without args:** checks all `.tsx` in `src/components/` that contain `data-component-id`. Exits 1 if any are stubs.
+
+Use in CI or after "Make shared" to catch any type that was generated before extraction was available or when extraction failed.
+
+## 5. Summary
+
+| Action | Requirement |
+|--------|-------------|
+| **Make shared (API / helper)** | First extract from CanvasPage via `scripts/canvas-extract-component.mjs`; on failure, use `scripts/component-templates.mjs`. Result: full UI for any type present in the canvas. |
+| **New canvas type** | Add the branch in `CanvasPage.tsx` only. "Make shared" will generate full code automatically. |
+| **Use in page** | Import and render the real component (e.g. `<Card2 />`). No placeholders. |
+
+This keeps shared components full-code and future-proof: every UI turned into a shared component gets full HTML/JSX in the project, derived from the canvas.

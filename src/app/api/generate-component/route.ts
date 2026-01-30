@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { pathToFileURL } from "url";
 
 /**
  * POST /api/generate-component
  * Body: { componentId: string }
- * Creates src/components/<componentId>.tsx directly in the components folder (no subfolder).
+ * Creates src/components/<componentId>.tsx with full UI derived from CanvasPage.tsx
+ * when the type exists there; otherwise falls back to templates (stub or known type).
  */
 export async function POST(request: Request) {
   try {
@@ -31,12 +33,23 @@ export async function POST(request: Request) {
     const componentPath = `src/components/${safeId}.tsx`;
     const componentTag = `<${safeId} />`;
 
-    const content = `"use client";
+    const canvasPagePath = path.join(cwd, "src", "pages", "CanvasPage.tsx");
+    const extractorPath = path.join(cwd, "scripts", "canvas-extract-component.mjs");
+    const { extractComponentFromCanvas } = await import(
+      pathToFileURL(extractorPath).href
+    );
+    const extracted = extractComponentFromCanvas(componentId, canvasPagePath);
 
-export default function ${safeId}() {
-  return <div data-component-id="${safeId}">${safeId}</div>;
-}
-`;
+    let content: string;
+    if (extracted.success && extracted.source) {
+      content = extracted.source;
+    } else {
+      const templatesPath = path.join(cwd, "scripts", "component-templates.mjs");
+      const { getFullComponentSource } = await import(
+        pathToFileURL(templatesPath).href
+      );
+      content = getFullComponentSource(componentId);
+    }
 
     fs.mkdirSync(componentsDir, { recursive: true });
     fs.writeFileSync(filePath, content, "utf8");

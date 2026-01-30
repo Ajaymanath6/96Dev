@@ -13,8 +13,9 @@ import {
   type CatalogEntry,
   type CatalogStore,
 } from "@/lib/canvas-catalog";
-import Sidebar from "@/components/Sidebar";
-import { Add, Copy, Share, TrashCan } from "@carbon/icons-react";
+import StackSidebar from "@/components/stack-sidebar";
+import Link from "next/link";
+import { ArrowLeft, Catalog, Add, Copy, Share, TrashCan } from "@carbon/icons-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const VIEWPORT_SIZE = 5000;
@@ -30,12 +31,50 @@ export interface CanvasElement {
   y: number;
   label?: string;
   content?: string;
+  title?: string;
+  subtitle?: string;
+  description?: string;
   isSharedComponent?: boolean;
+  collapsed?: boolean;
 }
+
+const DEFAULT_CARD: CanvasElement = {
+  id: "card-1",
+  type: "card",
+  x: 100,
+  y: 320,
+  label: "Card",
+  title: "Card title",
+  subtitle: "Card subtitle",
+  description: "Optional description text for the card body.",
+};
+
+const DEFAULT_CARD_2: CanvasElement = {
+  id: "card-2",
+  type: "card-2",
+  x: 400,
+  y: 320,
+  label: "Secondary outline button",
+  title: "Secondary outline button",
+  subtitle: "Subtitle",
+  description: "Outline button component for secondary actions.",
+};
+
+const DEFAULT_STACK_SIDEBAR: CanvasElement = {
+  id: "stack-sidebar-1",
+  type: "stack-sidebar",
+  x: 100,
+  y: 520,
+  label: "96Dev",
+  collapsed: false,
+};
 
 const DEFAULT_ELEMENTS: CanvasElement[] = [
   { id: "1", type: "element-1", x: 100, y: 100, label: "Element 1" },
   { id: "2", type: "element-2", x: 300, y: 200, label: "Element 2" },
+  DEFAULT_CARD,
+  DEFAULT_CARD_2,
+  DEFAULT_STACK_SIDEBAR,
 ];
 
 function loadElements(): CanvasElement[] {
@@ -44,7 +83,17 @@ function loadElements(): CanvasElement[] {
     const raw = localStorage.getItem(ELEMENTS_STORAGE_KEY);
     if (!raw) return DEFAULT_ELEMENTS;
     const parsed = JSON.parse(raw) as CanvasElement[];
-    return Array.isArray(parsed) ? parsed : DEFAULT_ELEMENTS;
+    let list = Array.isArray(parsed) ? parsed : DEFAULT_ELEMENTS;
+    if (!list.some((el) => el.type === "card")) {
+      list = [...list, { ...DEFAULT_CARD, id: `card-${Date.now()}` }];
+    }
+    if (!list.some((el) => el.type === "card-2")) {
+      list = [...list, { ...DEFAULT_CARD_2, id: `card-2-${Date.now()}` }];
+    }
+    if (!list.some((el) => el.type === "stack-sidebar")) {
+      list = [...list, { ...DEFAULT_STACK_SIDEBAR, id: `stack-sidebar-${Date.now()}` }];
+    }
+    return list;
   } catch {
     return DEFAULT_ELEMENTS;
   }
@@ -316,6 +365,16 @@ export default function CanvasPage() {
     showToast("Removed this instance from the canvas");
   }, [showToast]);
 
+  const setStackSidebarCollapsed = useCallback((elementId: string, collapsed: boolean) => {
+    setElements((prev) => {
+      const next = prev.map((el) =>
+        el.id === elementId ? { ...el, collapsed } : el
+      );
+      saveElements(next);
+      return next;
+    });
+  }, []);
+
   const copyToClipboard = useCallback(
     (text: string) => {
       navigator.clipboard.writeText(text).then(() => showToast("Copied to clipboard"));
@@ -355,7 +414,6 @@ export default function CanvasPage() {
 
   return (
     <div className="flex min-h-screen w-full bg-brandcolor-white">
-      <Sidebar />
       <main className="flex flex-1 flex-col min-h-screen bg-brandcolor-fill">
         {toast && (
           <div className="shrink-0 bg-brandcolor-textstrong text-brandcolor-white px-4 py-2 text-sm text-center">
@@ -376,8 +434,16 @@ export default function CanvasPage() {
           }}
           onWheel={handleWheel}
         >
-          <div className="absolute top-2 left-2 right-2 z-[100] flex items-center justify-between gap-2 rounded-button border border-brandcolor-strokeweak bg-brandcolor-white/95 px-3 py-2 shadow-card">
+          <div className="absolute top-2 left-2 right-2 z-100 flex items-center justify-between gap-2 rounded-button border border-brandcolor-strokeweak bg-brandcolor-white/95 px-3 py-2 shadow-card">
             <div className="flex items-center gap-2">
+              <Link
+                href="/"
+                className="inline-flex items-center justify-center rounded-button border border-brandcolor-strokeweak bg-brandcolor-white p-1.5 text-brandcolor-textstrong hover:bg-brandcolor-fill"
+                aria-label="Back to home"
+                title="Back to home"
+              >
+                <ArrowLeft size={20} />
+              </Link>
               <button
                 type="button"
                 onClick={zoomOut}
@@ -458,16 +524,92 @@ export default function CanvasPage() {
                     SHARED
                   </span>
                 )}
-                <div
-                  role="button"
-                  tabIndex={0}
-                  onMouseDown={(e) => handleElementMouseDown(e, el.id)}
-                  className="cursor-move rounded-button border border-brandcolor-strokeweak bg-brandcolor-white px-4 py-3 shadow-card hover:cursor-grab active:cursor-grabbing"
-                >
-                  <span className="text-sm font-medium text-brandcolor-textstrong">
-                    {el.label ?? el.type}
-                  </span>
-                </div>
+                {el.type === "card" ? (
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onMouseDown={(e) => handleElementMouseDown(e, el.id)}
+                    className="cursor-move w-64 rounded-large border border-brandcolor-strokeweak bg-brandcolor-white p-4 shadow-card hover:cursor-grab active:cursor-grabbing"
+                  >
+                    <h3 className="text-sm font-semibold text-brandcolor-textstrong">
+                      {el.title ?? el.label ?? "Title"}
+                    </h3>
+                    {el.subtitle && (
+                      <p className="mt-0.5 text-xs text-brandcolor-textweak">{el.subtitle}</p>
+                    )}
+                    {el.description && (
+                      <p className="mt-2 text-xs leading-relaxed text-brandcolor-textstrong">
+                        {el.description}
+                      </p>
+                    )}
+                    <div className="my-3 h-px bg-brandcolor-strokeweak" aria-hidden />
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={(e) => e.stopPropagation()}
+                        className="rounded-button bg-brandcolor-primary px-3 py-1.5 text-xs font-medium text-brandcolor-white hover:bg-brandcolor-primaryhover"
+                      >
+                        Primary
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => e.stopPropagation()}
+                        className="rounded-button bg-brandcolor-secondary px-3 py-1.5 text-xs font-medium text-brandcolor-white hover:bg-brandcolor-secondaryhover"
+                      >
+                        Secondary
+                      </button>
+                    </div>
+                  </div>
+                ) : el.type === "card-2" ? (
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onMouseDown={(e) => handleElementMouseDown(e, el.id)}
+                    className="cursor-move min-w-64 w-full max-w-full h-[323px] rounded-large overflow-hidden bg-brandcolor-white shadow-card hover:cursor-grab active:cursor-grabbing flex flex-col"
+                  >
+                    <div className="bg-brandcolor-fill px-4 py-3 rounded-b-button shrink-0">
+                      <div className="flex items-center gap-2">
+                        <Catalog size={20} className="text-brandcolor-strokestrong shrink-0" aria-hidden />
+                        <h3 className="text-sm font-semibold text-brandcolor-textstrong">
+                          {el.title ?? el.label ?? "Title"}
+                        </h3>
+                      </div>
+                      {el.description && (
+                        <p className="mt-1.5 text-xs text-brandcolor-textweak">
+                          {el.description}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex flex-col flex-1 min-h-0 items-center justify-center p-4">
+                      <img src="/Button.svg" alt="" className="max-w-full h-auto shrink-0" width={107} height={40} />
+                    </div>
+                  </div>
+                ) : el.type === "stack-sidebar" ? (
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onMouseDown={(e) => handleElementMouseDown(e, el.id)}
+                    className="cursor-move hover:cursor-grab active:cursor-grabbing"
+                  >
+                    <StackSidebar
+                      compact
+                      collapsed={el.collapsed}
+                      onCollapsedChange={(c) => setStackSidebarCollapsed(el.id, c)}
+                      label={el.label ?? "96Dev"}
+                    />
+                  </div>
+                ) : (
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onMouseDown={(e) => handleElementMouseDown(e, el.id)}
+                    className="cursor-move rounded-button border border-brandcolor-strokeweak bg-brandcolor-white px-4 py-3 shadow-card hover:cursor-grab active:cursor-grabbing"
+                  >
+                    <span className="text-sm font-medium text-brandcolor-textstrong">
+                      {el.label ?? el.type}
+                    </span>
+                  </div>
+                )}
                 <div
                   className="component-tooltip invisible absolute bottom-0 left-1/2 z-1000 w-max max-w-[90vw] -translate-x-1/2 translate-y-full rounded-large border border-brandcolor-strokeweak bg-brandcolor-white/98 p-2.5 shadow-card opacity-0 transition-opacity pointer-events-none group-hover:visible group-hover:opacity-100 group-hover:pointer-events-auto"
                   style={{ marginTop: "4px" }}
