@@ -1,0 +1,467 @@
+{
+  "themeColors": {
+    "brandcolor-primary": {
+      "hex": "#008B31",
+      "usage": "Main CTA button background, primary brand color",
+      "utilityClasses": {
+        "background": "bg-brandcolor-primary",
+        "text": "text-brandcolor-primary",
+        "border": "border-brandcolor-primary"
+      },
+      "whenToUse": [
+        "Primary/CTA buttons background",
+        "Main brand color elements",
+        "Active states",
+        "Primary actions"
+      ],
+      "examples": [
+        "Button: bg-brandcolor-primary text-brandcolor-white hover:bg-brandcolor-primaryhover",
+        "Active link: text-brandcolor-primary"
+      ]
+    },
+    "brandcolor-primaryhover": {
+      "hex": "#016323",
+      "usage": "Hover state for primary buttons (when background is primary)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-primaryhover",
+        "text": "text-brandcolor-primaryhover",
+        "border": "border-brandcolor-primaryhover"
+      },
+      "whenToUse": [
+        "Primary button hover state",
+        "Hover on elements with primary background"
+      ],
+      "examples": [
+        "Primary button hover: hover:bg-brandcolor-primaryhover",
+        "Full primary button: bg-brandcolor-primary text-brandcolor-white hover:bg-brandcolor-primaryhover"
+      ],
+      "logic": "When a button or element has bg-brandcolor-primary, the hover should use bg-brandcolor-primaryhover (darker shade of primary)"
+    },
+    "brandcolor-secondary": {
+      "hex": "#2F55D9",
+      "usage": "Secondary brand color for outline/secondary buttons with border",
+      "utilityClasses": {
+        "background": "bg-brandcolor-secondary",
+        "text": "text-brandcolor-secondary",
+        "border": "border-brandcolor-secondary"
+      },
+      "whenToUse": [
+        "Secondary button background",
+        "Outline button border and text",
+        "Alternative actions"
+      ],
+      "examples": [
+        "Outline button: border-brandcolor-secondary text-brandcolor-secondary bg-transparent hover:bg-brandcolor-neutralhover",
+        "Secondary button: bg-brandcolor-secondary text-brandcolor-white"
+      ]
+    },
+    "brandcolor-secondaryfill": {
+      "hex": "#EAEFFF",
+      "usage": "Brand color secondary fill – active/selected state background (e.g. Natural language dropdown when open)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-secondaryfill"
+      },
+      "whenToUse": [
+        "Active state of secondary-related controls (e.g. search type dropdown when open)",
+        "Selected pill/badge backgrounds tied to secondary actions",
+        "Light fill where secondary (#2F55D9) is the accent"
+      ],
+      "examples": [
+        "Dropdown trigger when open: bg-brandcolor-secondaryfill",
+        "Active search-type button: bg-brandcolor-secondaryfill"
+      ]
+    },
+    "brandcolor-secondaryhover": {
+      "hex": "#183885",
+      "usage": "Hover state for secondary buttons (darker shade of secondary)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-secondaryhover",
+        "text": "text-brandcolor-secondaryhover",
+        "border": "border-brandcolor-secondaryhover"
+      },
+      "whenToUse": [
+        "Secondary button hover state",
+        "Hover on elements with secondary background"
+      ],
+      "examples": [
+        "Secondary button hover: hover:bg-brandcolor-secondaryhover"
+      ],
+      "logic": "When a button has secondary background color, the hover should use bg-brandcolor-secondaryhover (#183885) which is a darker shade of secondary for better visual feedback."
+    },
+    "brandcolor-neutralhover": {
+      "hex": "#EFEFEF",
+      "usage": "Hover state for neutral buttons and outline buttons (NOT bg-brandcolor-fill)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-neutralhover",
+        "text": "text-brandcolor-neutralhover",
+        "border": "border-brandcolor-neutralhover"
+      },
+      "whenToUse": [
+        "Neutral button hover state",
+        "Outline button hover state",
+        "Primary-outline button hover state",
+        "Hover on elements with neutral/outline style"
+      ],
+      "examples": [
+        "Neutral button hover: hover:bg-brandcolor-neutralhover",
+        "Primary-outline button hover: hover:bg-brandcolor-neutralhover"
+      ],
+      "logic": "When a button is neutral or outline style (with border), the hover should use bg-brandcolor-neutralhover (#EFEFEF), NOT bg-brandcolor-fill."
+    },
+    "brandcolor-textstrong": {
+      "hex": "#001A31",
+      "usage": "Headings, main headings, button text in some cases",
+      "utilityClasses": {
+        "text": "text-brandcolor-textstrong"
+      },
+      "whenToUse": [
+        "All main headings (h1, h2, h3)",
+        "Primary text content",
+        "Button text (when specified)",
+        "Important labels"
+      ],
+      "examples": [
+        "Heading: text-brandcolor-textstrong text-2xl font-bold",
+        "Button text: text-brandcolor-textstrong"
+      ]
+    },
+    "brandcolor-textweak": {
+      "hex": "#5C6166",
+      "usage": "Secondary text, secondary hierarchy after main text",
+      "utilityClasses": {
+        "text": "text-brandcolor-textweak"
+      },
+      "whenToUse": [
+        "Body text",
+        "Secondary descriptions",
+        "Helper text",
+        "Less important information"
+      ],
+      "examples": [
+        "Body text: text-brandcolor-textweak text-sm",
+        "Description: text-brandcolor-textweak"
+      ]
+    },
+    "brandcolor-strokestrong": {
+      "hex": "#737373",
+      "usage": "ALWAYS use for: Sidebar borders, input field borders, button borders, icons",
+      "utilityClasses": {
+        "border": "border-brandcolor-strokestrong",
+        "text": "text-brandcolor-strokestrong"
+      },
+      "whenToUse": [
+        "Sidebar borders (ALWAYS use strokestrong)",
+        "Input field borders (ALWAYS use strokestrong)",
+        "Button borders (ALWAYS use strokestrong)",
+        "Icon colors",
+        "Strong dividers"
+      ],
+      "examples": [
+        "Sidebar: border-brandcolor-strokestrong",
+        "Input: border-brandcolor-strokestrong",
+        "Button border: border-brandcolor-strokestrong",
+        "Icon: text-brandcolor-strokestrong"
+      ],
+      "importantNote": "ALWAYS use strokestrong for sidebar borders, input field borders, and button borders. This is a mandatory rule."
+    },
+    "brandcolor-strokeweak": {
+      "hex": "#C5C5C5",
+      "usage": "ALWAYS use for: Card borders, dividers, and all other light elements",
+      "utilityClasses": {
+        "border": "border-brandcolor-strokeweak"
+      },
+      "whenToUse": [
+        "Card borders (ALWAYS use strokeweak)",
+        "Dividers (ALWAYS use strokeweak)",
+        "Light borders",
+        "Subtle separators",
+        "Secondary button borders (ALL secondary buttons use this border color - exception to button border rule)"
+      ],
+      "examples": [
+        "Card border: border-brandcolor-strokeweak",
+        "Divider: border-t border-brandcolor-strokeweak",
+        "Secondary button border: border-brandcolor-strokeweak"
+      ],
+      "importantNote": "ALWAYS use strokeweak for card borders and dividers. Secondary buttons are an exception and also use strokeweak."
+    },
+    "brandcolor-strokemild": {
+      "hex": "#A5A5A5",
+      "usage": "ALWAYS use for: Table row borders when hovered",
+      "utilityClasses": {
+        "border": "border-brandcolor-strokemild"
+      },
+      "whenToUse": [
+        "Table row borders when row is hovered (hover:border-brandcolor-strokemild)",
+        "Table row hover states"
+      ],
+      "examples": [
+        "Hovered table row: hover:border-brandcolor-strokemild"
+      ]
+    },
+    "brandcolor-strokelight": {
+      "hex": "#C5C5C5",
+      "usage": "ALWAYS use for: Primary-outline button borders",
+      "utilityClasses": {
+        "border": "border-brandcolor-strokelight"
+      },
+      "whenToUse": [
+        "Primary-outline button default border",
+        "Light stroke borders for primary-outline buttons"
+      ],
+      "examples": [
+        "Primary-outline button: border-brandcolor-strokelight"
+      ]
+    },
+    "brandcolor-fill": {
+      "hex": "#F5F5F5",
+      "usage": "Layout background (NOT for neutral/outline button hover - use brandcolor-neutralhover instead)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-fill"
+      },
+      "whenToUse": [
+        "Layout backgrounds",
+        "Section backgrounds",
+        "General fill backgrounds"
+      ],
+      "importantNote": "DO NOT use this for neutral/outline button hover - use brandcolor-neutralhover (#EFEFEF) instead"
+    },
+    "brandcolor-white": {
+      "hex": "#FFFFFF",
+      "usage": "Background color in general wherever necessary",
+      "utilityClasses": {
+        "background": "bg-brandcolor-white",
+        "text": "text-brandcolor-white"
+      },
+      "whenToUse": [
+        "Card backgrounds",
+        "Modal backgrounds",
+        "Button text on primary buttons",
+        "General white backgrounds"
+      ]
+    },
+    "brandcolor-sidebarhover": {
+      "hex": "#2E3C48",
+      "usage": "Hover state background color for sidebar menu items and dropdown menu backgrounds",
+      "utilityClasses": {
+        "background": "bg-brandcolor-sidebarhover",
+        "hover": "hover:bg-brandcolor-sidebarhover"
+      },
+      "whenToUse": [
+        "Sidebar menu item hover states",
+        "Navigation item hover backgrounds",
+        "Dropdown menu backgrounds"
+      ]
+    },
+    "brandcolor-banner-info-bg": {
+      "hex": "#D5DFFF",
+      "usage": "Background color for informational banners",
+      "utilityClasses": {
+        "background": "bg-brandcolor-banner-info-bg"
+      }
+    },
+    "brandcolor-banner-warning-bg": {
+      "hex": "#FFEBE1",
+      "usage": "Background color for warning / alert banners",
+      "utilityClasses": {
+        "background": "bg-brandcolor-banner-warning-bg"
+      }
+    },
+    "brandcolor-banner-warning-button": {
+      "hex": "#F26333",
+      "usage": "Button background color for warning banners",
+      "utilityClasses": {
+        "background": "bg-brandcolor-banner-warning-button",
+        "text": "text-brandcolor-white"
+      }
+    },
+    "brandcolor-results-bg": {
+      "hex": "#F8F9FB",
+      "usage": "Background color for results layout and scrollable content areas",
+      "utilityClasses": {
+        "background": "bg-brandcolor-results-bg"
+      }
+    },
+    "brandcolor-archived-bg": {
+      "hex": "#FBF8E7",
+      "usage": "Muted background for archived cards",
+      "utilityClasses": {
+        "background": "bg-brandcolor-archived-bg"
+      }
+    },
+    "brandcolor-archived-border": {
+      "hex": "#A5A5A5",
+      "usage": "Dashed/dotted border for archived cards",
+      "utilityClasses": {
+        "border": "border-brandcolor-archived-border"
+      }
+    },
+    "brandcolor-archived-badge": {
+      "hex": "#E8E8E8",
+      "usage": "Background for 'Archived' badge/label on archived cards",
+      "utilityClasses": {
+        "background": "bg-brandcolor-archived-badge"
+      }
+    },
+    "brandcolor-destructive": {
+      "hex": "#C20205",
+      "usage": "Destructive or archive action text",
+      "utilityClasses": {
+        "text": "text-brandcolor-destructive",
+        "background": "bg-brandcolor-destructive",
+        "border": "border-brandcolor-destructive"
+      }
+    },
+    "brandcolor-table-header": {
+      "hex": "#DDDDDD",
+      "usage": "Table header background color",
+      "utilityClasses": {
+        "background": "bg-brandcolor-table-header",
+        "border": "border-brandcolor-table-header"
+      }
+    },
+    "brandcolor-badge-success-bg": {
+      "hex": "#E2F3E0",
+      "usage": "Success badge background (light green)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-badge-success-bg"
+      }
+    },
+    "brandcolor-badge-success-text": {
+      "hex": "#028831",
+      "usage": "Success badge text color (dark green)",
+      "utilityClasses": {
+        "text": "text-brandcolor-badge-success-text"
+      }
+    },
+    "brandcolor-badge-attorney-bg": {
+      "hex": "#F2EBFF",
+      "usage": "Attorney/entity card badge background (light purple)",
+      "utilityClasses": {
+        "background": "bg-brandcolor-badge-attorney-bg"
+      }
+    },
+    "brandcolor-badge-attorney-text": {
+      "hex": "#6238AA",
+      "usage": "Attorney/entity card badge icon and label color (dark purple)",
+      "utilityClasses": {
+        "text": "text-brandcolor-badge-attorney-text"
+      }
+    },
+    "brandcolor-badge-amber-bg": {
+      "hex": "#FFF7DB",
+      "usage": "Amber/warning entity card badge background",
+      "utilityClasses": {
+        "background": "bg-brandcolor-badge-amber-bg"
+      }
+    },
+    "brandcolor-badge-amber-text": {
+      "hex": "#A47800",
+      "usage": "Amber entity card badge icon and label color",
+      "utilityClasses": {
+        "text": "text-brandcolor-badge-amber-text"
+      }
+    }
+  },
+  "componentGuidelines": {
+    "button": {
+      "cornerRadius": {
+        "value": "6px",
+        "tailwindClass": "rounded-button",
+        "description": "ALL buttons MUST have 6px corner radius. Use rounded-button (from theme) or rounded-md."
+      },
+      "secondaryBorderWidth": {
+        "value": "1.5px",
+        "tailwindClass": "border-[1.5px]",
+        "description": "ALL secondary buttons MUST have 1.5px border width."
+      },
+      "primary": {
+        "completeClasses": "border-[1.5px] border-transparent bg-brandcolor-primary text-brandcolor-white hover:bg-brandcolor-primaryhover focus:border-brandcolor-primary active:border-brandcolor-primary active:shadow-button-press disabled:opacity-50 rounded-button",
+        "whenToUse": "Main call-to-action buttons with primary brand color"
+      },
+      "secondary": {
+        "completeClasses": "border-[1.5px] border-transparent bg-brandcolor-secondary text-brandcolor-white hover:bg-brandcolor-secondaryhover focus:border-brandcolor-secondary active:border-brandcolor-secondary active:shadow-button-press disabled:opacity-50 rounded-button",
+        "whenToUse": "Secondary call-to-action buttons with secondary brand color background"
+      },
+      "secondary-outline": {
+        "completeClasses": "shadow-border-inset-strokelight text-brandcolor-secondary bg-brandcolor-white hover:bg-brandcolor-neutralhover active:shadow-border-inset-secondary-press disabled:opacity-50 rounded-button",
+        "whenToUse": "Secondary button style with outline appearance (white background with secondary border and text). Border is INSIDE (inset)."
+      },
+      "neutral": {
+        "completeClasses": "border-[1.5px] border-brandcolor-strokelight text-brandcolor-textweak bg-brandcolor-white hover:bg-brandcolor-neutralhover active:border-brandcolor-textweak active:shadow-button-press disabled:opacity-50 rounded-button",
+        "whenToUse": "Neutral actions that don't require primary or secondary emphasis"
+      },
+      "primary-outline": {
+        "completeClasses": "border-[1.5px] border-brandcolor-strokelight text-brandcolor-primary bg-brandcolor-white hover:bg-brandcolor-neutralhover active:border-brandcolor-primary active:shadow-button-press disabled:opacity-50 rounded-button",
+        "whenToUse": "Primary button style with outline appearance (white background with primary border and text). Border is CENTERED."
+      },
+      "criticalRules": [
+        "ALL buttons MUST have rounded-button (6px) - NO EXCEPTIONS",
+        "Primary-outline uses CENTERED border; secondary-outline uses INSET border (shadow)",
+        "Never use hardcoded Tailwind colors; only theme utility classes"
+      ]
+    },
+    "input": {
+      "classes": "border-brandcolor-strokestrong focus:border-brandcolor-textstrong focus:outline-none focus:ring-0 text-brandcolor-textstrong",
+      "criticalRules": [
+        "ALWAYS include focus:ring-0",
+        "ALWAYS include focus:outline-none",
+        "Focus border MUST be brandcolor-textstrong (#001A31)"
+      ]
+    },
+    "heading": {
+      "h1": "text-brandcolor-textstrong text-3xl font-bold",
+      "h2": "text-brandcolor-textstrong text-2xl font-semibold",
+      "h3": "text-brandcolor-textstrong text-xl font-semibold"
+    },
+    "icon": {
+      "classes": "text-brandcolor-strokestrong"
+    },
+    "card": {
+      "styling": "border border-brandcolor-strokeweak bg-brandcolor-white rounded-large shadow-card",
+      "criticalRules": [
+        "ALWAYS use border-brandcolor-strokeweak for card borders",
+        "Card width MUST be dynamic (w-fit or inline-block), NEVER fixed w-full for content cards"
+      ]
+    },
+    "table": {
+      "table": "w-full border border-brandcolor-strokeweak",
+      "tableRow": "border-b border-brandcolor-strokeweak",
+      "tableRowHover": "hover:bg-brandcolor-fill hover:border-brandcolor-strokemild",
+      "tableHeader": "px-4 py-3 text-left text-brandcolor-textweak bg-brandcolor-table-header",
+      "selectedRow": "border-brandcolor-secondary (ONLY border changes, NO background)",
+      "criticalRules": [
+        "Table borders: border-brandcolor-strokeweak",
+        "Header text: text-brandcolor-textweak",
+        "Body: text-brandcolor-textstrong for regular text, text-brandcolor-secondary for clickable/links"
+      ]
+    }
+  },
+  "aiInstructions": {
+    "workflow": [
+      "STEP 1 (MANDATORY): Read src/app/theme.css to see theme variables (Tailwind v4)",
+      "STEP 2 (MANDATORY): Read this theme-guide.json COMPLETELY to understand all rules",
+      "STEP 3: Check componentGuidelines for the specific component you are creating",
+      "STEP 4: Generate code using ONLY theme utility classes (bg-brandcolor-*, text-brandcolor-*, border-brandcolor-*, etc.)",
+      "STEP 5: Follow componentGuidelines exactly (requiredClasses, cornerRadius, etc.)",
+      "STEP 6: Verify no hex codes, no inline styles, no hardcoded Tailwind colors (e.g. bg-blue-*, text-gray-*)"
+    ],
+    "mandatoryFirstStep": {
+      "rule": "BEFORE making any component or styling changes, you MUST: (1) Read src/app/theme.css for theme tokens, (2) Read theme-guide.json completely for usage and component rules",
+      "severity": "CRITICAL"
+    },
+    "criticalRules": {
+      "noHexCodes": "NEVER use hex color codes (#008B31, #2F55D9, etc.) in HTML, CSS, or inline styles",
+      "noInlineStyles": "NEVER use inline styles for colors; use Tailwind utility classes only",
+      "noHardcodedTailwindColors": "NEVER use bg-blue-*, text-gray-*, border-gray-* etc.; use bg-brandcolor-*, text-brandcolor-*, border-brandcolor-*",
+      "onlyThemeClasses": "All color classes MUST use the theme: bg-brandcolor-*, text-brandcolor-*, border-brandcolor-*"
+    },
+    "validationChecklist": [
+      "NO hex codes anywhere",
+      "NO inline style attributes for colors",
+      "NO hardcoded Tailwind color classes",
+      "Only theme utility classes (brandcolor-* prefix)",
+      "Buttons use rounded-button (or rounded-md for 6px)",
+      "Secondary buttons use border-[1.5px]"
+    ]
+  }
+}

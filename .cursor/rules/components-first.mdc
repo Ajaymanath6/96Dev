@@ -1,0 +1,34 @@
+---
+description: Create reusable UI in src/components/ first, then use in pages/views
+globs: "**/*.tsx,**/*.jsx,src/pages/**/*,src/views/**/*,src/app/**/*"
+alwaysApply: true
+---
+
+# Components-first rule
+
+When the user asks for UI to be a **component** (e.g. sidebar, header, card, button, form), or when building any reusable UI:
+
+1. **Create the component in `src/components/` first**
+   - Style it using **only** `src/app/theme.css` and `theme-guide.json` (no hex, no inline colors, no hardcoded Tailwind colors like bg-blue-*, text-gray-*).
+   - One component per file (e.g. `src/components/Sidebar.tsx`, `src/components/Header.tsx`).
+   - Export as default or named export so it can be imported elsewhere.
+
+2. **Use the component in pages/views or app routes**
+   - Import from `@/components/ComponentName`.
+   - Use it in `src/pages/*.tsx`, `src/views/*.tsx`, or `src/app/**/page.tsx` (or layout.tsx) by rendering the imported component.
+
+3. **Do not put reusable UI logic directly in page files**
+   - Pages and views should compose components from `src/components/`, not define inline JSX that could be a reusable component.
+
+## Structure
+
+- **`src/components/`** – All reusable UI components (Sidebar, Header, Button, Card, etc.). Create here first.
+- **`src/pages/`** or **`src/views/`** – Page-level components that import and compose components from `src/components/`.
+- **`src/app/`** – Next.js App Router routes; `page.tsx` files import from `@/pages/*` or `@/views/*` and render them.
+
+## Example
+
+- User: "Add a sidebar and make it a component"
+- Do: Create `src/components/Sidebar.tsx`, then in `src/pages/HomePage.tsx` (or the relevant page) add `import Sidebar from "@/components/Sidebar"` and render `<Sidebar />`.
+
+Apply this rule whenever creating or specifying UI that should be reusable or that the user calls a "component".

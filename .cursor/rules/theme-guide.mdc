@@ -1,0 +1,40 @@
+---
+description: Use theme-guide.json and theme.css for all UI/styling to achieve design parity
+globs: "**/*.tsx,**/*.jsx,**/*.css,src/**/*"
+alwaysApply: true
+---
+
+# Theme & Design System Parity
+
+**From here on, any UI must be made using ONLY `src/app/theme.css` and `theme-guide.json`.** No hex codes, no inline color styles, no hardcoded Tailwind colors (e.g. bg-blue-*, text-gray-*). Use only theme utility classes (bg-brandcolor-*, text-brandcolor-*, border-brandcolor-*, etc.).
+
+When creating or editing **UI components, pages, or styling** in this project:
+
+## Mandatory first step
+
+1. **Read `theme-guide.json`** (project root) to understand:
+   - `themeColors`: hex, usage, utility classes (e.g. `bg-brandcolor-primary`, `text-brandcolor-textstrong`)
+   - `componentGuidelines`: button variants, input, heading, card, table rules and complete classes
+   - `aiInstructions`: workflow, critical rules, validation checklist
+
+2. **Read `src/app/theme.css`** to see Tailwind v4 theme tokens (colors, shadows, radius, breakpoints). All color utilities use the `brandcolor-*` prefix.
+
+## Critical rules
+
+- **No hex codes** in HTML, JSX, or inline styles. Use only theme utility classes.
+- **No inline styles** for colors. Use Tailwind utility classes from the theme.
+- **No hardcoded Tailwind colors** (e.g. `bg-blue-600`, `text-gray-900`). Use `bg-brandcolor-*`, `text-brandcolor-*`, `border-brandcolor-*` only.
+- **Buttons**: Use `rounded-button` (or `rounded-md` for 6px). Primary: `bg-brandcolor-primary text-brandcolor-white hover:bg-brandcolor-primaryhover`. See `componentGuidelines.button` in theme-guide.json for full classes per variant.
+- **Inputs**: `border-brandcolor-strokestrong focus:border-brandcolor-textstrong focus:outline-none focus:ring-0`.
+- **Headings**: `text-brandcolor-textstrong` with appropriate size (e.g. `text-3xl font-bold` for h1).
+- **Cards**: `border border-brandcolor-strokeweak bg-brandcolor-white rounded-large shadow-card`.
+- **Tables**: `border-brandcolor-strokeweak` for borders, `text-brandcolor-textweak` for headers, `text-brandcolor-textstrong` / `text-brandcolor-secondary` for body.
+
+## Validation before submitting
+
+- Scan for hex codes → remove, use theme classes.
+- Scan for inline color styles → remove, use theme classes.
+- Scan for non-theme Tailwind colors (e.g. `bg-blue-*`, `text-gray-*`) → replace with `brandcolor-*` classes.
+- Confirm required classes from `componentGuidelines` are present.
+
+Using **theme-guide.json** + **theme.css** as the single source of truth ensures AI-generated code matches the design system with 100% parity.

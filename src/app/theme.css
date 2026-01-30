@@ -1,0 +1,66 @@
+/**
+ * Tailwind v4 theme – same design tokens as your previous tailwind.config.js.
+ * No tailwind.config.js; no Flowbite.
+ * Load fonts (IBM Plex Sans, Lora) in layout.tsx via next/font/google or <link>.
+ */
+
+@theme {
+  /* Breakpoints → use as c-md: and c-xl: variants */
+  --breakpoint-c-md: 768px;
+  --breakpoint-c-xl: 1280px;
+
+  /* Font families */
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-lora: Lora, ui-serif, Georgia, serif;
+
+  /* Brand colors */
+  --color-brandcolor-primary: #008b31;
+  --color-brandcolor-primaryhover: #016323;
+  --color-brandcolor-secondary: #2f55d9;
+  --color-brandcolor-secondaryhover: #183885;
+  --color-brandcolor-secondaryfill: #eaefff;
+  --color-brandcolor-neutralhover: #efefef;
+  --color-brandcolor-textstrong: #001a31;
+  --color-brandcolor-textweak: #5c6166;
+  --color-brandcolor-strokestrong: #737373;
+  --color-brandcolor-strokeweak: #dddddd;
+  --color-brandcolor-strokemild: #a5a5a5;
+  --color-brandcolor-strokelight: #c5c5c5;
+  --color-brandcolor-fill: #f5f5f5;
+  --color-brandcolor-white: #ffffff;
+  --color-brandcolor-sidebarhover: #2e3c48;
+  --color-brandcolor-divider: #404b53;
+  --color-brandcolor-banner-info-bg: #d5dfff;
+  --color-brandcolor-banner-warning-bg: #ffebe1;
+  --color-brandcolor-banner-warning-button: #f26333;
+  --color-brandcolor-results-bg: #f8f9fb;
+  --color-brandcolor-archived-bg: #f5f6fa;
+  --color-brandcolor-archived-border: #cbd5e1;
+  --color-brandcolor-archived-badge: #e5e7eb;
+  --color-brandcolor-archived-badge-text: #6b7280;
+  --color-brandcolor-archived-icon: #a0aec0;
+  --color-brandcolor-destructive: #c20205;
+  --color-brandcolor-table-header: #dddddd;
+  --color-brandcolor-badge-success-bg: #e2f3e0;
+  --color-brandcolor-badge-success-text: #028831;
+  --color-brandcolor-badge-attorney-bg: #f2ebff;
+  --color-brandcolor-badge-attorney-text: #6238aa;
+  --color-brandcolor-badge-amber-bg: #fff7db;
+  --color-brandcolor-badge-amber-text: #a47800;
+
+  /* Box shadows */
+  --shadow-button-press: inset 3px 3px 10px 0 rgba(0, 26, 49, 0.33);
+  --shadow-border-inset-strokelight: inset 0 0 0 1.5px #c5c5c5;
+  --shadow-border-inset-secondary: inset 0 0 0 1.5px #2f55d9;
+  --shadow-border-inset-secondary-press: inset 0 0 0 1.5px #2f55d9,
+    inset 3px 3px 10px 0 rgba(0, 26, 49, 0.33);
+  --shadow-header: 0 4px 4px 0 rgba(115, 115, 115, 0.05);
+  --shadow-tab-option: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  --shadow-card: 0 0 5px 0 rgba(102, 118, 131, 0.2);
+
+  /* Border radius */
+  --radius-button: 6px;
+  --radius-large: 12px;
+
+  /* Border width 1.5: use arbitrary value border-[1.5px] (no theme var in v4 for border width) */
+}
